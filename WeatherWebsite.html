@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body>
+    
+    <input id="textcity" type="text">
+    <button id="FindCityByName">Find city</button>
+    <ul id="Data">
+      <li id="temperature"></li>
+      <li id ="weatherType"></li>
+      <li id = "huminidity"></li>
+      <li id="windspeed"></li>
+    </ul>
+
+
+    <script>
+             
+             
+          document.getElementById("FindCityByName").addEventListener("click", InputFromUser)
+          async function InputFromUser() {
+          const cityname = document.getElementById("textcity").value;
+          const apikey = "10fbbfcc81cd62f0c1e8a6725190d5b2";
+          const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${apikey}`;
+          
+          try {
+            const response =  await fetch(url);
+            if (!response.ok) {
+              throw new Error("Error");
+            }
+           
+            const data =  await response.json();
+            console.log(data)
+            let temperature = document.getElementById("temperature")
+            let weatherType = document.getElementById("weatherType")
+            let huminidity = document.getElementById("huminidity")
+            let windspeed = document.getElementById("windspeed")
+
+            temperature.innerHTML = data.main.temp + " K"
+            weatherType.innerHTML = data.weather[0].description
+            huminidity.innerHTML = data.main.humidity + " %"
+            windspeed.innerHTML = data.wind.speed + " km/h"
+          } 
+          catch (error) {
+           
+          }
+        }
+        
+
+
+
+
+        
+  
+
+ 
+    </script>
+</body>
+</html>
